@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Confidence Predictor</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #2c3e50, #1c2833);
+            color: #fff;
+        }
+        #upload-form {
+            max-width: 500px;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        #upload-form:hover {
+            transform: translateY(-5px);
+        }
+        #upload-form h2 {
+            margin-top: 0;
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        #video-upload {
+            margin-bottom: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            display: none;
+            margin-top: 30px;
+        }
+        #result h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        #confidence {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            letter-spacing: 1px;
+        }
+        #loading {
+            display: none;
+            margin-top: 30px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id="upload-form">
+        <h2>Self Confidence Predictor</h2>
+        <input type="file" id="video-upload" accept="video/*">
+        <button onclick="analyzeVideo()">Analyze Video</button>
+        <div id="result">
+            <h3>Confidence Level:</h3>
+            <p id="confidence"></p>
+        </div>
+        <div id="loading">
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <script>
+        function analyzeVideo() {
+            const fileInput = document.getElementById('video-upload');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select a video file.');
+                return;
+            }
+
+            const loadingDiv = document.getElementById('loading');
+            loadingDiv.style.display = 'block';
+
+            // Simulate processing the video file
+            setTimeout(() => {
+                // Replace this with your machine learning model prediction logic
+                const confidenceLevel = 0.9012; // Example: Random confidence level between 0 and 1
+                displayResult(confidenceLevel);
+                loadingDiv.style.display = 'none';
+            }, 2000); // Simulating a delay of 2 seconds for processing
+        }
+
+        function displayResult(confidenceLevel) {
+            const resultDiv = document.getElementById('result');
+            const confidenceParagraph = document.getElementById('confidence');
+
+            confidenceParagraph.textContent = `${(confidenceLevel * 100).toFixed(2)}%`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

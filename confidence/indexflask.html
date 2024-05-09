@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Confidence Predictor</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <div id="upload-form">
+        <h2>Self Confidence Predictor</h2>
+        <form id="upload-form" method="post" enctype="multipart/form-data" action="/analyze">
+            <input type="file" id="video-upload" name="video" accept="video/*">
+            <button type="submit">Analyze Video</button>
+        </form>
+        <div id="result" style="display: none;">
+            <h3>Confidence Level:</h3>
+            <p id="confidence"></p>
+        </div>
+        <div id="loading" style="display: none;">
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const loadingDiv = document.getElementById('loading');
+            loadingDiv.style.display = 'block';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('result');
+                const confidenceParagraph = document.getElementById('confidence');
+
+                confidenceParagraph.textContent = `${(data.confidence * 100).toFixed(2)}%`;
+                resultDiv.style.display = 'block';
+                loadingDiv.style.display = 'none';
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
